@@ -1,9 +1,20 @@
 "use strict"
 
-module.exports = (input, { postfix = "rainbows" } = {}) => {
-	if (typeof input !== "string") {
-		throw new TypeError(`Expected a string, got ${typeof input}`)
+const AggregateError = require("aggregate-error")
+
+module.exports = async promiseFunctions => {
+	if (!Array.isArray(promiseFunctions) || promiseFunctions.length === 0) {
+		throw new TypeError(`Expected an array with at least 1 promise-returning function, got ${typeof promiseFunctions}`)
 	}
 
-	return `${input} & ${postfix}`
+	const errors = []
+	for await (const promiseFunction of promiseFunctions) {
+		try {
+			return await promiseFunction()
+		} catch (error) {
+			errors.push(error)
+		}
+	}
+
+	throw new AggregateError(errors)
 }

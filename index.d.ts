@@ -1,15 +1,18 @@
+import { AsyncReturnType } from "type-fest" // eslint-disable-line import/no-unresolved
+
 /**
-My awesome module.
-@param input Lorem ipsum.
-@param postfix Lorem ipsum.
+Try to execute a list of promises until one succeeds.
+@param promiseFunctions The array of promise-returning functions to execute. An [AggregateError] is thrown if all of them fail.
 @example
 ```
-const theModule = require("the-module");
+const pFallback = require("p-fallback");
 
-theModule("unicorns");
-//=> 'unicorns & rainbows'
+const result = await pFallback([
+	asyncOperation,
+	otherAsyncOperation
+]);
 ```
 */
-declare function theModule(input: string, { postfix }: { postfix?: string }): string
+declare function pFallback<ValueType>(promiseFunctions: readonly ValueType[]): Promise<AsyncReturnType<ValueType>>
 
-export = theModule
+export = pFallback

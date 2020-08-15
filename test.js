@@ -1,13 +1,26 @@
 const test = require("ava")
-const theModule = require(".")
+const AggregateError = require("aggregate-error")
+const pFallback = require(".")
 
-test("main", t => {
-	t.throws(() => {
-		theModule(123)
-	}, {
-		instanceOf: TypeError,
-		message: "Expected a string, got number"
+test("main", async t => {
+	t.is(await pFallback([
+		async () => "a",
+		async () => "b"
+	]), "a")
+	t.is(await pFallback([
+		async () => {
+			throw new Error("Test error.")
+		},
+		async () => "b"
+	]), "b")
+	await t.throwsAsync(async () => pFallback([
+		async () => {
+			throw new Error("Test error 1.")
+		},
+		async () => {
+			throw new Error("Test error 2.")
+		}
+	]), {
+		instanceOf: AggregateError
 	})
-
-	t.is(theModule("unicorns"), "unicorns & rainbows")
 })

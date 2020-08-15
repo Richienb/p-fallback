@@ -1,8 +1,8 @@
 {
-	"name": "the-module",
+	"name": "p-fallback",
 	"version": "0.0.0",
-	"description": "My awesome module.",
-	"repository": "https://github.com/Richienb/the-module.git",
+	"description": "Try to execute a list of promises until one succeeds.",
+	"repository": "https://github.com/Richienb/p-fallback.git",
 	"author": "Richie Bendall <richiebendall@gmail.com>",
 	"license": "MIT",
 	"main": "index.js",
@@ -17,8 +17,17 @@
 		"lint": "xo",
 		"test": "xo && ava"
 	},
-	"keywords": [],
-	"dependencies": {},
+	"keywords": [
+		"promise",
+		"fallback",
+		"error",
+		"catch",
+		"value"
+	],
+	"dependencies": {
+		"aggregate-error": "^3.0.1",
+		"type-fest": "^0.16.0"
+	},
 	"devDependencies": {
 		"ava": "^3.10.1",
 		"eslint-config-richienb": "^0.4.2",

@@ -1,41 +1,32 @@
-# the-module [![Travis CI Build Status](https://img.shields.io/travis/com/Richienb/the-module/master.svg?style=for-the-badge)](https://travis-ci.com/Richienb/the-module)
+# p-fallback [![Travis CI Build Status](https://img.shields.io/travis/com/Richienb/p-fallback/master.svg?style=for-the-badge)](https://travis-ci.com/Richienb/p-fallback)
 
-My awesome module.
+Try to execute a list of promises until one succeeds.
 
-[![NPM Badge](https://nodei.co/npm/the-module.png)](https://npmjs.com/package/the-module)
+[![NPM Badge](https://nodei.co/npm/p-fallback.png)](https://npmjs.com/package/p-fallback)
 
 ## Install
 
 ```sh
-npm install the-module
+npm install p-fallback
 ```
 
 ## Usage
 
 ```js
-const theModule = require("the-module");
+const pFallback = require("p-fallback");
 
-theModule("unicorns");
-//=> 'unicorns & rainbows'
+const result = await pFallback([
+	asyncOperation,
+	otherAsyncOperation
+]);
 ```
 
 ## API
 
-### theModule(input, options?)
+### pFallback(promiseFunctions)
 
-#### input
+#### promiseFunctions
 
-Type: `string`
+Type: `Array<() => Promise>`
 
-Lorem ipsum.
-
-#### options
-
-Type: `object`
-
-##### postfix
-
-Type: `string`\
-Default: `rainbows`
-
-Lorem ipsum.
+The array of promise-returning functions to execute. An [AggregateError] is thrown if all of them fail.
