@@ -1,6 +1,6 @@
 {
 	"name": "p-fallback",
-	"version": "0.0.0",
+	"version": "1.0.0",
 	"description": "Try to execute a list of promises until one succeeds.",
 	"repository": "https://github.com/Richienb/p-fallback.git",
 	"author": "Richie Bendall <richiebendall@gmail.com>",
